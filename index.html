@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Soy International</title>
+</head>
+<body>
+    <nav>
+        <img src="./assets/weather-forecast (1).png" style="width: 60px; background-color: #0d2928" alt=""> 
+    </nav>
+    <main>
+        <div>
+            <h1>Clima Internacional</h1>
+            <p>Recorre y descubre el clima por el mundo y el de tu propida ciudad!</p>
+            <label for="inputCity"> Ciudad</label>
+            <input type="text" id="inputCity" name="inputCity">
+            <label for="inputCountry">Pais</label>
+            <input type="text" name="inputCountry" id="inputCountry">
+            <input type="button" name="btnSearch" id="btnSearch" value="Buscar">
+        </div>
+        <!-- div que se agrega contenido dinamico -->
+        <div id="containerTitle"></div>
+        <div id="containerImg"></div>
+        <div id="containerWeather"></div>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>
