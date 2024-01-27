@@ -5,24 +5,25 @@ const inputCity = document.getElementById("inputCity");
 const inputCountry = document.getElementById("inputCountry");
 const btn = document.getElementById("btnSearch");
 const APIkey = `335c87fe603f14b97380be07152af7e5`;
-let city
-let country 
+
 //obtiene latitud y longitud de la ciudad ingresada por el usuario
 document.addEventListener("DOMContentLoaded", getGeocoding())
 
 function getGeocoding(){
     btn.addEventListener("click", async ()=>{
-        city = inputCity.value
-        country = inputCountry.value
+        const city = inputCity.value
+        const country = inputCountry.value
         
         const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${country}&appid=${APIkey}`);
         if(!response.ok) throw new Error(`${response.status}`);
         const data = await response.json();
         const {lat, lon} = data[0]
-        getWeather(lat, lon) //toma la latitud y longitud para cargar la info y mostrar el templeate
-        getWeatherImg(lat, lon)// carga la imagen del clima y la muestra
+
+        const img = await getWeatherImg(lat, lon)// carga la imagen del clima y la muestra
+        const weather = await getWeather(lat, lon) //toma la latitud y longitud para cargar la info y mostrar el templeate
+        showWeather(weather,city, country)
         inputCity.value = ""; //limpiar los campos
-        inputCountry.value = "";  
+        inputCountry.value = ""; 
     });  
 }
 //obtiene informacion del clima pronosticado para los siguiente siete dias de cada ciudad 
@@ -31,7 +32,7 @@ async function getWeather(lat, lon){
     if(!response.ok) throw new Error(`${response.status}`);
     const data = await response.json();
     const {dataseries} = data //array con el clima de los siete dias
-    showWeather(dataseries,city, country)
+    return dataseries
 }
 //imagenes del clima de los siguientes siete dias de cada ciudad
 async function getWeatherImg(lat, lon){
