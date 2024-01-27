@@ -14,7 +14,7 @@ function getGeocoding(){
         const city = inputCity.value
         const country = inputCountry.value
         
-        const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${country}&appid=${APIkey}`);
+        const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${country}&appid=${APIkey}`);
         if(!response.ok) throw new Error(`${response.status}`);
         const data = await response.json();
         const {lat, lon} = data[0]
@@ -28,7 +28,7 @@ function getGeocoding(){
 }
 //obtiene informacion del clima pronosticado para los siguiente siete dias de cada ciudad 
 async function getWeather(lat, lon){
-    const response = await fetch(`http://www.7timer.info/bin/api.pl?lon=${lon}&lat=${lat}&product=civillight&output=json`);
+    const response = await fetch(`https://www.7timer.info/bin/api.pl?lon=${lon}&lat=${lat}&product=civillight&output=json`);
     if(!response.ok) throw new Error(`${response.status}`);
     const data = await response.json();
     const {dataseries} = data //array con el clima de los siete dias
@@ -36,7 +36,7 @@ async function getWeather(lat, lon){
 }
 //imagenes del clima de los siguientes siete dias de cada ciudad
 async function getWeatherImg(lat, lon){
-    const response = await fetch(`http://www.7timer.info/bin/civillight.php?lon=${lon}&lat=${lat}&ac=0&lang=en&unit=metric&output=internal&tzshift=0`);
+    const response = await fetch(`https://www.7timer.info/bin/civillight.php?lon=${lon}&lat=${lat}&ac=0&lang=en&unit=metric&output=internal&tzshift=0`);
     if(!response.ok) throw new Error(`${response.status}`);
     const data = await response.blob()
     const urlImg = URL.createObjectURL(data)
