@@ -4,8 +4,11 @@ nav{
     margin: 0;
 }
 body{
-    background-color:#94b4b3;
+    background: url(./assets/fondoWeather.jpg) no-repeat;
+    background-size: cover;
+    /*background-color:#94b4b3;*/
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #ffff;
 }
 main{
     padding: 1em;
@@ -14,6 +17,7 @@ main{
     font-size: larger;
     font-style: italic;
     font-family: 'Courier New', Courier, monospace;
+    
 }
 #btnSearch{
     background-color: #0d2928;
@@ -40,6 +44,8 @@ input {
 .cardWeather{
         font-size: smaller;
         float: left;
+        margin: 4px;
+        backdrop-filter: blur(15px);
 }
 #containerWeather{
     display: flex;

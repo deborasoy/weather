@@ -1,5 +1,5 @@
 const containerWeather = document.getElementById("containerWeather");
-const containerImg = document.getElementById("containerImg");
+//const containerImg = document.getElementById("containerImg");
 const containerTitle = document.getElementById("containerTitle");
 const inputCity = document.getElementById("inputCity");
 const inputCountry = document.getElementById("inputCountry");
@@ -19,7 +19,7 @@ function getGeocoding(){
         const data = await response.json();
         const {lat, lon} = data[0]
 
-        const img = await getWeatherImg(lat, lon)// carga la imagen del clima y la muestra
+       // const img = await getWeatherImg(lat, lon)// carga la imagen del clima y la muestra
         const weather = await getWeather(lat, lon) //toma la latitud y longitud para cargar la info y mostrar el templeate
         showWeather(weather,city, country)
         inputCity.value = ""; //limpiar los campos
@@ -35,26 +35,36 @@ async function getWeather(lat, lon){
     return dataseries
 }
 //imagenes del clima de los siguientes siete dias de cada ciudad
-async function getWeatherImg(lat, lon){
+/*async function getWeatherImg(lat, lon){
     const response = await fetch(`https://www.7timer.info/bin/civillight.php?lon=${lon}&lat=${lat}&ac=0&lang=en&unit=metric&output=internal&tzshift=0`);
     if(!response.ok) throw new Error(`${response.status}`);
     const data = await response.blob()
     const urlImg = URL.createObjectURL(data)
     let template =`<img id="imgWeather" src="${urlImg}" alt="ayuda visual del clima">`
     containerImg.innerHTML = template
+}*/
+function formatearFecha(fecha){
+    //extraer una parte de una cadena por el indice y devolver una nueva cadena
+    const año = fecha.substring(0,4); 
+    const mes = fecha.substring(4,6);
+    const dia = fecha.substring(6,8);
+    return dia + "-" + mes + "-" + año; 
 }
 //template del clima que se muestra por cada ciudad con el pronostico
 async function showWeather(array, city, country){
+   
     let template =``;
-    let templeateTitle =`<h2>${city}, ${country}</h2>`;
+    let templeateTitle =`<h2 style ="backdrop-filter: blur(15px)">${city}, ${country}</h2>`;
     for (let index = 0; index < array.length; index++) {
            const element = array[index];
            const {date, weather, temp2m} = element
+           const fechaFormateada = formatearFecha(date.toString());
           template += `
               <div class="cardWeather">
-                <h3>Date: ${date} </h3>
+                <h3>${fechaFormateada} </h3>
                 <p>Weather: ${weather} </p>
-                <p> temp max: ${temp2m.max} temp min: ${temp2m.min}</p>
+                <p> temp max: ${temp2m.max} ºC </p>
+                <p>temp min: ${temp2m.min}ºC </p>
              </div>
            `
         }
